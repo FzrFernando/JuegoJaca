@@ -15,7 +15,7 @@ public class Jugador extends Element {
 	}
 
 //	public String getNombre() {
-//		
+//	
 //	}
 
 	public int getFuerzaParaLuchar() {
