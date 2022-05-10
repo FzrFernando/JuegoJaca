@@ -14,9 +14,9 @@ public class Jugador extends Element {
 		this.jugador = jugador;
 	}
 
-//	public String getNombre() {
-//	
-//	}
+	public String getNombre() {
+		return jugador.name();
+	}
 
 	public int getFuerzaParaLuchar() {
 		int fuerzaLucha = (int) (Math.random() * (jugador.getFuerza() - 0 + 1) + jugador.getFuerza());
