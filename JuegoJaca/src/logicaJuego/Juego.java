@@ -18,7 +18,10 @@ public class Juego {
 	}
 
 	private void crearTablero() {
-		
+		crearRocas();
+		crearGemas();
+		crearPociones();
+		crearDinero();
 	}
 	
 	private boolean crearJugador(PlayerType jugador) { //No estoy muy seguro de este método
@@ -86,6 +89,14 @@ public class Juego {
 		return resul.toString();
 	}
 
+	public boolean isTerminado() {
+		boolean terminado = false;
+		if(coordenadaJugadores.size() == 1) {
+			terminado = true;
+		}
+		return terminado;
+	}
+	
 
 	/**
 	 * Simplemente escribe una barra en pantalla
@@ -102,6 +113,17 @@ public class Juego {
 		return resul.toString();
 	}
 
+	public String imprimeNombreJugadores() {
+		StringBuilder nombresJugadores = new StringBuilder();
+		//Un for de las coordenadas de los jugadores y mostrar getPlayer?
+		return nombresJugadores.toString();
+	}
+	
+	public String imprimeValoreJugadores() {
+		StringBuilder valoresJugadores = new StringBuilder();
+		//Un for de las coordenadas de los jugadores y motrar sus pociones, dinero, etc...?
+		return valoresJugadores.toString();
+	}
 
 	/**
 	 * Mover el jugador
