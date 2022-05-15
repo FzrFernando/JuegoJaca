@@ -125,6 +125,41 @@ public class Juego {
 		return valoresJugadores.toString();
 	}
 
+	private void eliminarJugador(Coordenada c) {
+		if (tablero.get(c) instanceof Jugador) {
+			tablero.remove(c);
+			coordenadaJugadores.remove(c);
+		}
+	}
+	
+	private Coordenada getNextPosition(char posicion) {
+		Coordenada c = coordenadaJugadores.get(jugadorJuega);
+		//Hay que lanzar excepción aquí?
+		if (posicion == 'N') {
+			c.goUp();
+		}
+		else if(posicion == 'E'){
+			c.goRight();
+		}
+		else if (posicion == 'S') {
+			c.goDown();
+		}
+		else {
+			c.goLeft();
+		}
+		return c;
+	}
+	
+	private void cambiaJugadorAPosicion(Coordenada c) {
+		Coordenada sitioActual = coordenadaJugadores.get(jugadorJuega);
+		Jugador j = (Jugador) tablero.get(sitioActual);
+		tablero.put(c, j);
+		tablero.remove(sitioActual);
+		coordenadaJugadores.remove(jugadorJuega);
+		coordenadaJugadores.add(jugadorJuega, c);
+	}
+	
+	
 	/**
 	 * Mover el jugador
 	 * 
@@ -219,5 +254,7 @@ public class Juego {
 		return resul;
 	}
 
-	
+	public void proximoJugador() {
+		//Dice el turno del siguiente jugador??
+	}
 }
