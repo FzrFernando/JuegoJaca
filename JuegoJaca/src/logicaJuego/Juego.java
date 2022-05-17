@@ -11,7 +11,7 @@ public class Juego {
 	private HashMap<Coordenada, Element> tablero;
 	private ArrayList<Coordenada> coordenadaJugadores;
 	private int jugadorJuega;
-	private int dado; // Dado para ver los movimientos del jugador que juega
+	private int dado;
 	
 	public Juego(PlayerType[] jugadores) {
 		super();
@@ -255,6 +255,46 @@ public class Juego {
 	}
 
 	public void proximoJugador() {
-		//Dice el turno del siguiente jugador??
+		jugadorJuega++;
+		if (jugadorJuega == (Constantes.NUM_JUGADORES - 1)) {
+			jugadorJuega = 0;
+		}
+	}
+	
+	public String getGanador() {
+		String resul = "";
+		Jugador aux;
+		if (coordenadaJugadores.size() == 1) {
+			aux = (Jugador) tablero.get(coordenadaJugadores.get(0));
+			resul = aux.toString();
+		} else {
+			for (Element e : tablero.values()) {
+				if (e instanceof Jugador) {
+					if (((Jugador) e).getDinero() == Constantes.DINERO) {
+						resul = e.toString();
+					}
+				}
+			}
+		}
+		return resul;
+	}
+	
+	public String getNombreJugadorQueJuega() {
+		Jugador aux = (Jugador) tablero.get(coordenadaJugadores.get(jugadorJuega));
+		return aux.getNombre();
+	}
+	
+	public int getMovimientoJugador() {
+		Coordenada c = coordenadaJugadores.get(jugadorJuega);
+		Jugador aux = (Jugador) tablero.get(c);
+		return aux.getVelocidadParaLuchar();
+	}
+	
+	public int getValorDado() {
+		return dado;
+	}
+	
+	public void decrementoDado() {
+		dado--;
 	}
 }
