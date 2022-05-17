@@ -24,7 +24,7 @@ public class Juego {
 		crearDinero();
 	}
 	
-	private boolean crearJugador(PlayerType jugador) { //No estoy muy seguro de este método
+	private boolean crearJugador(PlayerType jugador) { //No estoy muy seguro de este mï¿½todo
 		boolean creado = false;
 		for(PlayerType pt1 : PlayerType.values()) {
 			if (pt1.equals(jugador) && creado!= true) {
@@ -134,7 +134,7 @@ public class Juego {
 	
 	private Coordenada getNextPosition(char posicion) {
 		Coordenada c = coordenadaJugadores.get(jugadorJuega);
-		//Hay que lanzar excepción aquí?
+		//Hay que lanzar excepciï¿½n aquï¿½?
 		if (posicion == 'N') {
 			c.goUp();
 		}
@@ -296,5 +296,17 @@ public class Juego {
 	
 	public void decrementoDado() {
 		dado--;
+	}
+	
+	public void setDado() {
+		
+	}
+	
+	public Element obtenerElementoTablero(Coordenada c) {
+		
+	}
+	
+	public Coordenada obtenerCoordenadaJugadorJuega() {
+		
 	}
 }
