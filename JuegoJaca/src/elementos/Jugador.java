@@ -27,16 +27,22 @@ public class Jugador extends Element {
 		return dinero;
 	}
 
-	public void setDinero(int dinero) {
-		this.dinero = dinero;
+	public void setDinero(int dinero) throws JugadorException {
+		if(dinero>Constantes.NUM_DINERO) {
+			throw new JugadorException("Esa cantidad de dinero es mayor al maximo");
+		}
+		this.dinero += dinero;
 	}
 
 	public int getGemas() {
 		return gemas;
 	}
 
-	public void setGemas(int gemas) {
-		this.gemas = gemas;
+	public void setGemas(int gemas) throws JugadorException {
+		if(gemas > Constantes.NUM_GEMAS) {
+			throw new JugadorException("Esa cantidad de gemas es mayor al maximo");
+		}
+		this.gemas += gemas;
 	}
 
 	public PlayerType getPlayer() {
@@ -50,29 +56,52 @@ public class Jugador extends Element {
 	public int getPociones() {
 		return pociones;
 	}
+	
+	public void setPociones(int pociones) throws JugadorException {
+		if(pociones>Constantes.NUM_POCIONES) {
+			throw new JugadorException("Esa cantidad de pociones es mayor al maximo");
+		}
+		this.pociones += pociones;
+	}
 
-	public void encuentraDinero() {
+	public void encuentraDinero() throws JugadorException {
+		if(this.dinero>=Constantes.NUM_DINERO) {
+			throw new JugadorException("Ya a acumulado todo el dinero");
+		}
 		this.dinero += 1;
 	}
 
-	public void encuentraGema() {
+	public void encuentraGema() throws JugadorException {
+		if(this.gemas>=Constantes.NUM_GEMAS) {
+			throw new JugadorException("Ya a acumulado todas las gemas");
+		}
 		this.gemas += 1;
 	}
 
-	public void encuentraPocion() {
+	public void encuentraPocion() throws JugadorException {
+		if(this.pociones>=Constantes.NUM_POCIONES) {
+			throw new JugadorException("Ya a acumulado todas las pociones");
+		}
 		this.pociones += 1;
 	}
 
-	public int encuentraRoca() {
+	public int encuentraRoca() throws JugadorException {
 		int resul = 2;
-		if (gemas > 0) {
-			resul = 0;
-			this.gemas -= 1;
-		} else {
-			if (getMagia() > 4) {
-				resul = 1;
+		if(getGemas()>0) {
+			resul= Constantes.ROMPE_ROCA_CON_GEMA;
+			setGemas(-1);
+		}
+		else {
+			if (gemas > 0) {
+				resul = 0;
+				this.gemas -= 1;
+			} else {
+				if (getMagia() > 4) {
+					resul = 1;
+				}
 			}
 		}
+		
 		return resul;
 	}
 
@@ -135,5 +164,10 @@ public class Jugador extends Element {
 	public int getVelocidadParaLuchar() {
 		int resul = (int) (Math.random() * (getVelocidad() - 0 + 1) + getVelocidad());
 		return resul;
+	}
+	
+	public String resumen() {
+		return "Nombre: " + this.getNombre() + " Gemas: " + this.getGemas() + " Dinero: " + this.getDinero()
+				+ "Pociones: " + this.getPociones();
 	}
 }
