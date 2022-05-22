@@ -40,7 +40,7 @@ class TestCoordenada {
 
 	@Test
 	public void goDownBueno() {
-		assertTrue(c1.goRight());
+		assertTrue(c5.goDown());
 	}
 
 	@Test
