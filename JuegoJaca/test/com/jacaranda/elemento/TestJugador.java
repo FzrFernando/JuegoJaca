@@ -1,361 +1,279 @@
 package com.jacaranda.elemento;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import elementos.Jugador;
 import elementos.JugadorException;
 import elementos.PlayerType;
 import logicaJuego.Constantes;
 
-class TestJugador {
+public class TestJugador {
+	Jugador j1 = new Jugador(PlayerType.ELFO);
+
+	Jugador j2 = new Jugador(PlayerType.GUERRERO);
+	Jugador j3 = new Jugador(PlayerType.OGRO);
+	Jugador j4 = new Jugador(PlayerType.MAGO);
 
 	@Test
-	public void fuerzaParaLucharElfo() {
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.ELFO);
-			assertTrue(j.getFuerzaParaLuchar() >= 0 && j.getFuerzaParaLuchar() <= Constantes.ELFO_FUERZA);
+	public void testFuerzaParaLucharElfo() {
+		for (int i = 0; i <= 10; i++) {
+			Jugador j1 = new Jugador(PlayerType.ELFO);
+			assertTrue(j1.getFuerzaParaLuchar() >= 0 && j1.getFuerzaParaLuchar() <= Constantes.ELFO_FUERZA);
 		}
 
 	}
 
 	@Test
-	public void fuerzaParaLucharGuerrero() {
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.GUERRERO);
-			assertTrue(j.getFuerzaParaLuchar() >= 0 && j.getFuerzaParaLuchar() <= Constantes.GUERRERO_FUERZA);
+	public void testFuerzaParaLucharOgro() {
+		for (int i = 0; i < 100; i++) {
+			Jugador j1 = new Jugador(PlayerType.OGRO);
+			assertTrue(j1.getFuerzaParaLuchar() >= 0 && j1.getFuerzaParaLuchar() <= Constantes.OGRO_FUERZA);
 		}
 
 	}
 
 	@Test
-	public void fuerzaParaLucharMago() {
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.MAGO);
-			assertTrue(j.getFuerzaParaLuchar() >= 0 && j.getFuerzaParaLuchar() <= Constantes.MAGO_FUERZA);
+	public void testFuerzaParaLucharGuerrero() {
+		for (int i = 0; i < 100; i++) {
+			Jugador j1 = new Jugador(PlayerType.GUERRERO);
+			assertTrue(j1.getFuerzaParaLuchar() >= 0 && j1.getFuerzaParaLuchar() <= Constantes.GUERRERO_FUERZA);
 		}
 
 	}
 
 	@Test
-	public void fuerzaParaLucharOgro() {
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.OGRO);
-			assertTrue(j.getFuerzaParaLuchar() >= 0 && j.getFuerzaParaLuchar() <= Constantes.OGRO_FUERZA);
+	public void testFuerzaParaLucharMago() {
+		for (int i = 0; i < 100; i++) {
+			Jugador j1 = new Jugador(PlayerType.MAGO);
+			assertTrue(j1.getFuerzaParaLuchar() >= 0 && j1.getFuerzaParaLuchar() <= Constantes.MAGO_FUERZA);
 		}
 
 	}
 
 	@Test
-	public void magiaParaLucharElfo() {
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.ELFO);
-			assertTrue(j.getMagiaParaLuchar() >= 0 && j.getMagiaParaLuchar() <= Constantes.ELFO_MAGIA);
+	public void testVelocidadParaLucharElfo() {
+
+		for (int i = 0; i <= 10; i++) {
+			Jugador j1 = new Jugador(PlayerType.ELFO);
+			assertTrue(j1.getMagiaParaLuchar() >= 0 && j1.getMagiaParaLuchar() <= Constantes.ELFO_VELOCIDAD);
 		}
 
 	}
 
 	@Test
-	public void magiaParaLucharGuerrero() {
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.GUERRERO);
-			assertTrue(j.getMagiaParaLuchar() >= 0 && j.getMagiaParaLuchar() <= Constantes.GUERRERO_MAGIA);
+	public void testVelocidadParaLucharOgro() {
+
+		for (int i = 0; i <= 10; i++) {
+			Jugador j1 = new Jugador(PlayerType.OGRO);
+			assertTrue(j1.getMagiaParaLuchar() >= 0 && j1.getMagiaParaLuchar() <= Constantes.OGRO_VELOCIDAD);
 		}
 
 	}
 
 	@Test
-	public void magiaParaLucharMago() {
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.MAGO);
-			assertTrue(j.getMagiaParaLuchar() >= 0 && j.getMagiaParaLuchar() <= Constantes.MAGO_MAGIA);
+	public void testVelocidadParaLucharGuerrero() {
+		for (int i = 0; i < 100; i++) {
+			Jugador j1 = new Jugador(PlayerType.GUERRERO);
+			assertTrue(j1.getFuerzaParaLuchar() >= 0 && j1.getFuerzaParaLuchar() <= Constantes.GUERRERO_VELOCIDAD);
 		}
 
 	}
 
 	@Test
-	public void magiaParaLucharOgro() {
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.OGRO);
-			assertTrue(j.getMagiaParaLuchar() >= 0 && j.getMagiaParaLuchar() <= Constantes.OGRO_MAGIA);
+	public void testVelocidadParaLucharMago() {
+		for (int i = 0; i < 100; i++) {
+			Jugador j1 = new Jugador(PlayerType.MAGO);
+			assertTrue(j1.getFuerzaParaLuchar() >= 0 && j1.getFuerzaParaLuchar() <= Constantes.MAGO_VELOCIDAD);
 		}
 
 	}
 
 	@Test
-	public void velocidadParaLucharElfo() {
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.ELFO);
-			assertTrue(j.getVelocidadParaLuchar() >= 0 && j.getVelocidadParaLuchar() <= Constantes.ELFO_VELOCIDAD);
+	public void testMagiaParaLucharElfo() {
+
+		for (int i = 0; i <= 10; i++) {
+			Jugador j1 = new Jugador(PlayerType.ELFO);
+			assertTrue(j1.getMagiaParaLuchar() >= 0 && j1.getMagiaParaLuchar() <= Constantes.ELFO_MAGIA);
 		}
 
 	}
 
 	@Test
-	public void velocidadParaLucharGuerrero() {
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.GUERRERO);
-			assertTrue(j.getVelocidadParaLuchar() >= 0 && j.getVelocidadParaLuchar() <= Constantes.GUERRERO_VELOCIDAD);
+	public void testMagiaParaLucharOgro() {
+
+		for (int i = 0; i <= 10; i++) {
+			Jugador j1 = new Jugador(PlayerType.OGRO);
+			assertTrue(j1.getMagiaParaLuchar() >= 0 && j1.getMagiaParaLuchar() <= Constantes.OGRO_MAGIA);
 		}
 
 	}
 
 	@Test
-	public void velocidadParaLucharMago() {
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.MAGO);
-			assertTrue(j.getVelocidadParaLuchar() >= 0 && j.getVelocidadParaLuchar() <= Constantes.MAGO_VELOCIDAD);
+	public void testMagiaParaLucharGuerrero() {
+		for (int i = 0; i < 100; i++) {
+			Jugador j1 = new Jugador(PlayerType.GUERRERO);
+			assertTrue(j1.getFuerzaParaLuchar() >= 0 && j1.getFuerzaParaLuchar() <= Constantes.GUERRERO_MAGIA);
 		}
 
 	}
 
 	@Test
-	public void velocidadParaLucharOgro() {
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.OGRO);
-			assertTrue(j.getVelocidadParaLuchar() >= 0 && j.getVelocidadParaLuchar() <= Constantes.OGRO_VELOCIDAD);
+	public void testMagiaParaLucharMago() {
+		for (int i = 0; i < 100; i++) {
+			Jugador j1 = new Jugador(PlayerType.MAGO);
+			assertTrue(j1.getFuerzaParaLuchar() >= 0 && j1.getFuerzaParaLuchar() <= Constantes.MAGO_MAGIA);
 		}
 
 	}
 
 	@Test
-	public void mostrarDinero() {
-		Jugador j = new Jugador(PlayerType.ELFO);
-		assertEquals(0, j.getDinero());
-	}
-
-	@Test
-	public void introducirDinero() {
-		Jugador j = new Jugador(PlayerType.ELFO);
+	public void setDineroLimiteAlto() {
 		try {
-			j.setDinero(2);
-			assertEquals(2, j.getDinero());
+			j1.setDinero(3);
+			fail("Tiene que saltar la excepcion porque el dinero no puede ser mas de 2");
 		} catch (JugadorException e) {
-
+			e.printStackTrace();
 		}
-
 	}
 
 	@Test
-	public void introducirDineroFueraLimite() {
-		Jugador j = new Jugador(PlayerType.ELFO);
+	public void setDineroLimiteBajo() {
 		try {
-			j.setDinero(3);
-			fail("Tendria que saltar una exception");
+			j1.setDinero(-1);
+			fail("Tiene que saltar la excepcion porque el dinero no puede ser negativo");
 		} catch (JugadorException e) {
-			System.out.println("Error no puede ser mayor la cantidad de dinero a la constante");
+			e.printStackTrace();
 		}
 	}
 
 	@Test
-	public void mostrarPociones() {
-		Jugador j = new Jugador(PlayerType.ELFO);
-		assertEquals(0, j.getPociones());
-	}
-
-	@Test
-	public void introducirPociones() {
-		Jugador j = new Jugador(PlayerType.ELFO);
+	public void setDineroLimite2() {
 		try {
-			j.setPociones(3);
-			assertEquals(3, j.getPociones());
+			j1.setDinero(2);
 		} catch (JugadorException e) {
-
+			e.printStackTrace();
 		}
-
 	}
 
 	@Test
-	public void introducirPocionesFueraLimite() {
-		Jugador j = new Jugador(PlayerType.ELFO);
+	public void setDineroLimite0() {
 		try {
-			j.setPociones(4);
-			fail("Tendria que saltar una exception");
+			j1.setDinero(0);
 		} catch (JugadorException e) {
-			System.out.println("Error no puede ser mayor la cantidad de pociones a la constante");
+			e.printStackTrace();
 		}
 	}
 
-	/*
-	 * 
-	 */
 	@Test
-	public void mostrarGemas() {
-		Jugador j = new Jugador(PlayerType.ELFO);
-		assertEquals(0, j.getGemas());
-	}
-
-	@Test
-	public void introducirGemas() {
-		Jugador j = new Jugador(PlayerType.ELFO);
+	public void setPocionesLimiteAlto() {
 		try {
-			j.setGemas(5);
-			assertEquals(5, j.getGemas());
+			j1.setPociones(4);
+			fail("Tiene que saltar la excepcion porque las pociones no puede ser ,as de 3");
 		} catch (JugadorException e) {
-
+			e.printStackTrace();
 		}
-
 	}
 
 	@Test
-	public void introducirGemasFueraLimite() {
-		Jugador j = new Jugador(PlayerType.ELFO);
+	public void setPocionesLimiteBajo() {
 		try {
-			j.setGemas(6);
-			fail("Tendria que saltar una exception");
+			j1.setPociones(-1);
+			fail("Tiene que saltar la excepcion porque las pociones no puede ser negativo");
 		} catch (JugadorException e) {
-			System.out.println("Error no puede ser mayor la cantidad de gemas a la constante");
+			e.printStackTrace();
 		}
 	}
 
 	@Test
-	public void lucha() {
-		Jugador j = new Jugador(PlayerType.OGRO);
-		Jugador enemigo = new Jugador(PlayerType.ELFO);
-		for (int i = 0; i < 20; i++) {
-			int combate = j.lucha(enemigo);
-			assertTrue(combate == 3 || combate == 6 || combate == 0);
-		}
-	}
-
-	@Test
-	public void luchaConPociones() throws JugadorException {
-
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.OGRO);
-			Jugador enemigo = new Jugador(PlayerType.ELFO);
-			j.setPociones(1);
-			enemigo.setPociones(1);
-			try {
-				int combate = j.lucha(enemigo);
-				assertTrue(combate == 1 || combate == 4 || combate == 0);
-			} catch (Exception e) {
-
-			}
-		}
-	}
-
-	@Test
-	public void luchaConDinero() throws JugadorException {
-
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.OGRO);
-			Jugador enemigo = new Jugador(PlayerType.ELFO);
-			j.setDinero(1);
-			enemigo.setDinero(1);
-			try {
-				int combate = j.lucha(enemigo);
-				assertTrue(combate == 2 || combate == 5 || combate == 0);
-			} catch (Exception e) {
-
-			}
-		}
-	}
-
-	@Test
-	public void rocaConGema() throws JugadorException {
-
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.OGRO);
-			j.setGemas(1);
-			try {
-				int combate = j.encuentraRoca();
-				assertTrue(combate == 0 && j.getGemas() == 0);
-			} catch (Exception e) {
-
-			}
-		}
-	}
-
-	@Test
-	public void rocaSinGema() throws JugadorException {
-
-		for (int i = 0; i < 20; i++) {
-			Jugador j = new Jugador(PlayerType.OGRO);
-
-			try {
-				int combate = j.encuentraRoca();
-				assertTrue(combate == 1 || combate == 2);
-			} catch (Exception e) {
-
-			}
-		}
-	}
-
-	@Test
-	public void encuentraDinero() {
-		Jugador j = new Jugador(PlayerType.OGRO);
+	public void setPocionesLimite3() {
 		try {
-			j.encuentraDinero();
-			assertEquals(1, j.getDinero());
+			j1.setPociones(3);
 		} catch (JugadorException e) {
-
+			e.printStackTrace();
 		}
 	}
 
 	@Test
-	public void encuentraPocion() {
-		Jugador j = new Jugador(PlayerType.OGRO);
+	public void setPocionesLimite0() {
 		try {
-			j.encuentraPocion();
-			assertEquals(1, j.getPociones());
+			j1.setPociones(0);
 		} catch (JugadorException e) {
-
+			e.printStackTrace();
 		}
+	}
+
+	@Test
+	public void setGemasLimiteAlto() {
+		try {
+			j1.setGemas(6);
+			fail("Tiene que saltar la excepcion porque las gemas no puede ser mas de 5");
+		} catch (JugadorException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void setGemasLimiteBajo() {
+		try {
+			j1.setGemas(-1);
+			fail("Tiene que saltar la excepcion porque las gemas no puede ser negativo");
+		} catch (JugadorException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void setGemasLimite5() {
+		try {
+			j1.setGemas(5);
+		} catch (JugadorException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void setGemasLimite0() {
+		try {
+			j1.setGemas(0);
+		} catch (JugadorException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testResumen() {
+		assertEquals("Nombre: OGRO Gemas: 0 Dinero: 0Pociones: 0", j3.resumen());
 	}
 
 	@Test
 	public void encuentraGema() {
-		Jugador j = new Jugador(PlayerType.OGRO);
-		try {
+		j1.encuentraGema();
+		assertEquals(1, j1.getGemas());
+	}
+
+	@Test
+	public void encuentraDinero() {
+		j1.encuentraDinero();
+		assertEquals(1, j1.getDinero());
+	}
+
+	@Test
+	public void rompeRocaConGema() {
+		for (int i = 0; i < 10; i++) {
+			Jugador j = new Jugador(PlayerType.MAGO);
 			j.encuentraGema();
-			;
-			assertEquals(1, j.getGemas());
-		} catch (JugadorException e) {
-
+			assertEquals(Constantes.ROMPE_ROCA_CON_GEMA, j.encuentraRoca());
 		}
 	}
 
 	@Test
-	public void encuentraDineroDeMas() {
-		Jugador j = new Jugador(PlayerType.OGRO);
-		try {
-			for (int i = 0; i < Constantes.NUM_DINERO + 1; i++) {
-				j.encuentraDinero();
-			}
-
-			fail("Tendria que saltar un error");
-		} catch (JugadorException e) {
-			System.out.println("Limite de dinero alcanzado");
+	public void ganaRocaOPierdeConRoca() {
+			int encuentro = 0;
+			encuentro = j1.encuentraRoca();
+			assertTrue(encuentro == Constantes.GANA_A_LA_ROCA || encuentro == Constantes.PIERDE_A_LA_ROCA);
 		}
-	}
-
-	@Test
-	public void encuentraPocionDeMas() {
-		Jugador j = new Jugador(PlayerType.OGRO);
-		try {
-			for (int i = 0; i < Constantes.NUM_POCIONES + 1; i++) {
-				j.encuentraPocion();
-			}
-
-			fail("Tendria que saltar un error");
-		} catch (JugadorException e) {
-			System.out.println("Limite de pociones alcanzado");
-		}
-	}
-
-	@Test
-	public void encuentraGemaDeMas() {
-		Jugador j = new Jugador(PlayerType.OGRO);
-		try {
-			for (int i = 0; i < Constantes.NUM_GEMAS + 1; i++) {
-				j.encuentraGema();
-			}
-
-			fail("Tendria que saltar un error");
-		} catch (JugadorException e) {
-			System.out.println("Limite de gemas alcanzado");
-		}
-	}
 }
