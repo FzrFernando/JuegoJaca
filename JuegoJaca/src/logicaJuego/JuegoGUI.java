@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -86,7 +87,7 @@ public class JuegoGUI extends Juego implements ActionListener {
 		// en el dado.
 
 		JOptionPane.showMessageDialog(ventana,
-				"Le toca al jugador " + super.getNombreJuegadorQueJuega() + ". El dado saca " + super.getValorDado() + " movimientos");
+				"Le toca al jugador " + super.getNombreJugadorQueJuega() + ". El dado saca " + super.getValorDado() + " movimientos");
 	}
 
 	// Devuelve el icono correspondiente según el elemento
@@ -139,7 +140,7 @@ public class JuegoGUI extends Juego implements ActionListener {
 	 */
 	public void setInformacion() {
 
-		this.informacion.setText("<html>" + super.imprimeValoreJugadores().replaceAll("\n", "<br>") + "<br>"
+		this.informacion.setText("<html>" + super.imprimeValoresJugadores().replaceAll("\n", "<br>") + "<br>"
 				+ super.imprimeNombreJugadores().replaceAll("\n", "<br><br>") + "</html>");
 	}
 
@@ -163,14 +164,24 @@ public class JuegoGUI extends Juego implements ActionListener {
 					if (i == coord.getX()) {
 						if (j - coord.getY() == 1) {
 							try {
-								resul = super.movePlayer('S');
+								try {
+									resul = super.movePlayer('S');
+								} catch (CloneNotSupportedException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 							} catch (JuegoException | JugadorException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
 						} else if (j - coord.getY() == -1) {
 							try {
-								resul = super.movePlayer('N');
+								try {
+									resul = super.movePlayer('N');
+								} catch (CloneNotSupportedException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 							} catch (JuegoException | JugadorException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -181,14 +192,24 @@ public class JuegoGUI extends Juego implements ActionListener {
 					} else if (j == coord.getY()) { // Si la y es igual, miro a ver si hay una diferencia de 1 en la x
 						if (i - coord.getX() == 1) {
 							try {
-								resul = super.movePlayer('E');
+								try {
+									resul = super.movePlayer('E');
+								} catch (CloneNotSupportedException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 							} catch (JuegoException | JugadorException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
 						} else if (i - coord.getX() == -1) {
 							try {
-								resul = super.movePlayer('O');
+								try {
+									resul = super.movePlayer('O');
+								} catch (CloneNotSupportedException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 							} catch (JuegoException | JugadorException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -208,7 +229,12 @@ public class JuegoGUI extends Juego implements ActionListener {
 		if (super.isTerminado())
 
 		{
-			JOptionPane.showMessageDialog(ventana, "Juego terminado. El ganador es:" + super.getGanador());
+			try {
+				JOptionPane.showMessageDialog(ventana, "Juego terminado. El ganador es:" + super.getGanador());
+			} catch (HeadlessException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			System.exit(0);
 		}
 
@@ -219,7 +245,7 @@ public class JuegoGUI extends Juego implements ActionListener {
 			super.proximoJugador();
 			super.setDado();
 			setInformacion();
-			JOptionPane.showMessageDialog(ventana, "Le toca al jugador " + super.getNombreJuegadorQueJuega()
+			JOptionPane.showMessageDialog(ventana, "Le toca al jugador " + super.getNombreJugadorQueJuega()
 					+ ". El dado saca " + super.getValorDado() + " movimientos");
 
 		}

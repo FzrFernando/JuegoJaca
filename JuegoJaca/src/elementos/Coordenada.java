@@ -1,7 +1,6 @@
 package elementos;
 
 import java.util.Objects;
-import java.util.Random;
 
 import logicaJuego.Constantes;
 
@@ -9,21 +8,19 @@ public class Coordenada {
 
 	private int x;
 	private int y;
-	
+
 	public Coordenada() {
 		super();
-		Random r1 = new Random();
-		this.x = r1.nextInt(Constantes.TAMANNO);
-		this.y = r1.nextInt(Constantes.TAMANNO);
+		x = (int) (Math.random() * Constantes.TAMANNO);
+		y = (int) (Math.random() * Constantes.TAMANNO);
 	}
 
 	public Coordenada(int x, int y) {
 		super();
-		if (x < 0 || x >= Constantes.TAMANNO || y < 0 || y >= Constantes.TAMANNO){
+		if (x < 0 || x > Constantes.TAMANNO || y < 0 || y > Constantes.TAMANNO) {
 			this.x = 0;
 			this.y = 0;
-		}
-		else {
+		} else {
 			this.x = x;
 			this.y = y;
 		}
@@ -35,6 +32,57 @@ public class Coordenada {
 
 	public int getY() {
 		return y;
+	}
+
+	public boolean goUp() {
+		boolean resul;
+		int aux = y - 1;
+		if (aux <= 0) {
+			resul = false;
+		} else {
+			y = aux;
+			resul = true;
+		}
+		return resul;
+	}
+
+	public boolean goDown() {
+		boolean resul;
+		int aux = y + 1;
+		if (aux >= Constantes.TAMANNO) {
+			resul = false;
+
+		} else {
+			y = aux;
+			resul = true;
+		}
+		return resul;
+	}
+
+	public boolean goLeft() {
+		boolean resul;
+		int aux = x - 1;
+		if (aux <= 0) {
+			resul = false;
+
+		} else {
+			x = aux;
+			resul = true;
+		}
+		return resul;
+	}
+
+	public boolean goRight() {
+		boolean resul;
+		int aux = x + 1;
+		if (aux >= Constantes.TAMANNO) {
+			resul = false;
+
+		} else {
+			x = aux;
+			resul = true;
+		}
+		return resul;
 	}
 
 	@Override
@@ -58,56 +106,12 @@ public class Coordenada {
 	public String toString() {
 		return "Coordenada [x=" + x + ", y=" + y + "]";
 	}
-	
-	public boolean goRight() {
-		boolean movimiento;
-		if(x == Constantes.TAMANNO-1) {
-			movimiento = false;
-		}
-		else {
-			x++;
-			movimiento = true;
-		}
-		return movimiento;
+
+	@Override
+	public Coordenada clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		Coordenada aux = new Coordenada(this.x, this.y);
+		return aux;
 	}
-	
-	public boolean goLeft() {
-		boolean movimiento;
-		if(x == 0) {
-			movimiento = false;
-		}
-		else {
-			x--;
-			movimiento = true;
-		}
-		return movimiento;
-	}
-	
-	public boolean goUp() {
-		boolean movimiento;
-		if(y == 0) {
-			movimiento = false;
-		}
-		else {
-			y--;
-			movimiento = true;
-		}
-		return movimiento;
-	}
-	
-	public boolean goDown() {
-		boolean movimiento;
-		if(y == Constantes.TAMANNO-1) {
-			movimiento = false;
-		}
-		else {
-			y++;
-			movimiento = true;
-		}
-		return movimiento;
-	}
-	
-	protected Object clone() throws CloneNotSupportedException {
-	    return new Coordenada (this.x,this.y);
-	}
+
 }

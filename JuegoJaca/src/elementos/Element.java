@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Element {
 
-	private ElementType elemento;
+	protected ElementType elemento;
 
 	public Element(ElementType elemento) {
 		super();
