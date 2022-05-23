@@ -56,7 +56,7 @@ public class Juego {
 		while (i < Constantes.NUM_ROCAS) {
 			Coordenada c = new Coordenada();
 			Element e = new Element(ElementType.ROCA);
-			// Si el get de la coordenada es null lo que hago es añadirla, sino no aumento
+			// Si el get de la coordenada es null lo que hago es aï¿½adirla, sino no aumento
 			// el contador
 			if (tablero.get(c) == null) {
 				this.tablero.put(c, e);
@@ -71,7 +71,7 @@ public class Juego {
 		while (i < Constantes.NUM_GEMAS) {
 			Coordenada c = new Coordenada();
 			Element e = new Element(ElementType.GEMA);
-			// Si el get de la coordenada es null lo que hago es añadirla, sino no aumento
+			// Si el get de la coordenada es null lo que hago es aï¿½adirla, sino no aumento
 			// el contador
 			if (tablero.get(c) == null) {
 				this.tablero.put(c, e);
@@ -86,7 +86,7 @@ public class Juego {
 		while (i < Constantes.NUM_POCIONES) {
 			Coordenada c = new Coordenada();
 			Element e = new Element(ElementType.POCION);
-			// Si el get de la coordenada es null lo que hago es añadirla, sino no aumento
+			// Si el get de la coordenada es null lo que hago es aï¿½adirla, sino no aumento
 			// el contador
 			if (tablero.get(c) == null) {
 				this.tablero.put(c, e);
@@ -238,7 +238,7 @@ public class Juego {
 		while (i < Constantes.NUM_DINERO) {
 			Coordenada c = new Coordenada();
 			Element e = new Element(ElementType.DINERO);
-			// Si el get de la coordenada es null lo que hago es añadirla, sino no aumento
+			// Si el get de la coordenada es null lo que hago es aï¿½adirla, sino no aumento
 			// el contador
 			if (tablero.get(c) == null) {
 				this.tablero.put(c, e);
@@ -313,7 +313,7 @@ public class Juego {
 		// Tengo que ver que hay en la nueva casilla
 		Element elemento = this.tablero.get(coordDestino);
 
-		if (elemento != null) { // Hay algo en la casilla
+		if (elemento != null&& !coordDestino.equals(this.coordenadaJugadores.get(jugadorJuega))) { // Hay algo en la casilla
 			if (elemento instanceof Jugador) {
 
 				Jugador enemigo = (Jugador) elemento;
