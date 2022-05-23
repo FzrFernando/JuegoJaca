@@ -1,14 +1,13 @@
 package com.jacaranda.logicaJuego;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import elementos.Coordenada;
-import elementos.Element;
-import elementos.ElementType;
 import elementos.Jugador;
 import elementos.JugadorException;
 import elementos.PlayerType;
@@ -17,47 +16,32 @@ import logicaJuego.Juego;
 import logicaJuego.JuegoException;
 
 public class TestJuego {
-
+	
 	@Test
-	public void crearJugadores() {
+	public void imprimeValoresJugadores() {
 		PlayerType[] jugadores = new PlayerType[Constantes.NUM_JUGADORES];
-		for (int i = 0; i < Constantes.NUM_JUGADORES; i++) {
-			jugadores[i] = PlayerType.ELFO;
-		}
-		Juego j = new Juego(jugadores);
-
-		assertEquals("El jugador 1 es un ELFO El jugador 2 es un ELFO El jugador 3 es un ELFO El jugador 4 es un ELFO ",
-				j.imprimeNombreJugadores());
-
+		jugadores[0] = PlayerType.GUERRERO;
+		jugadores[1] = PlayerType.ELFO;
+		jugadores[2] = PlayerType.OGRO;
+		jugadores[3] = PlayerType.MAGO;
+		Juego j1 = new Juego(jugadores);
+		assertEquals("El jugador 1 es un GUERRERO\n" + "El jugador 2 es un ELFO\n" + "El jugador 3 es un OGRO\n"
+				+ "El jugador 4 es un MAGO\n", j1.imprimeNombreJugadores());
 	}
 
 	@Test
-	public void valorDado() {
+	public void setDado() {
 		PlayerType[] jugadores = new PlayerType[Constantes.NUM_JUGADORES];
 		for (int i = 0; i < Constantes.NUM_JUGADORES; i++) {
 			jugadores[i] = PlayerType.ELFO;
 		}
-		Juego j = new Juego(jugadores);
-		j.setDado();
+		Juego j1 = new Juego(jugadores);
+		j1.setDado();
 
 		for (int i = 0; i < 20; i++) {
-			assertTrue(j.getValorDado() <= Constantes.ELFO_VELOCIDAD && j.getValorDado() > 0);
+			assertTrue(j1.getValorDado() > 0 && j1.getValorDado() <= Constantes.ELFO_VELOCIDAD);
 
 		}
-
-	}
-
-	@Test
-	public void decrementarDado() {
-		PlayerType[] jugadores = new PlayerType[Constantes.NUM_JUGADORES];
-		for (int i = 0; i < Constantes.NUM_JUGADORES; i++) {
-			jugadores[i] = PlayerType.ELFO;
-		}
-		Juego j = new Juego(jugadores);
-		j.setDado();
-		int valorDado = j.getValorDado();
-		j.decrementaDado();
-		assertEquals(valorDado - 1, j.getValorDado());
 
 	}
 
@@ -66,85 +50,71 @@ public class TestJuego {
 		PlayerType[] jugadores = new PlayerType[Constantes.NUM_JUGADORES];
 		jugadores[0] = PlayerType.ELFO;
 		jugadores[1] = PlayerType.MAGO;
-		jugadores[2] = PlayerType.ELFO;
-		jugadores[3] = PlayerType.ELFO;
+		jugadores[2] = PlayerType.OGRO;
+		jugadores[3] = PlayerType.GUERRERO;
 
-		Juego j = new Juego(jugadores);
-		j.proximoJugador();
-
-		assertEquals("MAGO", j.getNombreJugadorQueJuega());
+		Juego juego = new Juego(jugadores);
+		juego.proximoJugador();
+		assertEquals("MAGO", juego.getNombreJugadorQueJuega());
 
 	}
 
-	public void proximoJugadorReinicio() {
+	@Test
+	public void proximoJugadorInicia() {
 		PlayerType[] jugadores = new PlayerType[Constantes.NUM_JUGADORES];
 		jugadores[0] = PlayerType.ELFO;
 		jugadores[1] = PlayerType.MAGO;
-		jugadores[2] = PlayerType.MAGO;
-		jugadores[3] = PlayerType.MAGO;
-
-		Juego j = new Juego(jugadores);
-		for (int i = 0; i < Constantes.NUM_JUGADORES - 1; i++) {
-			j.proximoJugador();
-		}
-
-		assertEquals("ELFO", j.getNombreJugadorQueJuega());
+		jugadores[2] = PlayerType.OGRO;
+		jugadores[3] = PlayerType.GUERRERO;
+		Juego juego = new Juego(jugadores);
+		juego.proximoJugador();
+		juego.proximoJugador();
+		juego.proximoJugador();
+		juego.proximoJugador();
+		assertEquals("ELFO", juego.getNombreJugadorQueJuega());
 
 	}
 
 	@Test
-	public void partidaTerminada() throws JugadorException {
+	public void isGanadorUno() {
 		PlayerType[] jugadores = new PlayerType[1];
-
-		jugadores[0] = PlayerType.MAGO;
-
-		Juego j = new Juego(jugadores);
-
-		assertTrue(j.isTerminado());
-
-	}
-	/*
-	 * partida no terminada
-	 */
-
-	@Test
-	public void partidaNoTerminada() throws JugadorException {
-		PlayerType[] jugadores = new PlayerType[2];
-
-		jugadores[0] = PlayerType.MAGO;
-		jugadores[1] = PlayerType.MAGO;
-
-		Juego j = new Juego(jugadores);
-
-		assertFalse(j.isTerminado());
+		jugadores[0] = PlayerType.OGRO;
+		Juego juego = new Juego(jugadores);
+		assertTrue(juego.isTerminado());
 
 	}
 
-	// Partida ganada con dinero
 	@Test
-	public void partidaTerminadaDinero() throws JugadorException {
-		PlayerType[] jugadores = new PlayerType[2];
-
-		jugadores[0] = PlayerType.MAGO;
+	public void isNotTerminado() {
+		PlayerType[] jugadores = new PlayerType[Constantes.NUM_JUGADORES];
+		jugadores[0] = PlayerType.ELFO;
 		jugadores[1] = PlayerType.MAGO;
-
-		Juego j = new Juego(jugadores);
-		Coordenada c = j.obtenerCoordenadaJugadorJuega();
-		Jugador participante = (Jugador) j.obtenerElementoTablero(c);
-		participante.setDinero(Constantes.NUM_DINERO);
-
-		assertTrue(j.isTerminado());
-
+		jugadores[2] = PlayerType.OGRO;
+		jugadores[3] = PlayerType.GUERRERO;
+		Juego juego = new Juego(jugadores);
+		assertFalse(juego.isTerminado());
 	}
 
-	// MOVER PLAYER N
+	@Test
+	public void ganaConDinero() throws JugadorException {
+		PlayerType[] jugadores = new PlayerType[2];
+		jugadores[0] = PlayerType.ELFO;
+		jugadores[1] = PlayerType.MAGO;
+		Juego juego = new Juego(jugadores);
+		Coordenada c = juego.obtenerCoordenadaJugadorJuega();
+		Jugador j = (Jugador) juego.obtenerElementoTablero(c);
+		j.setDinero(Constantes.NUM_DINERO);
+
+		assertTrue(juego.isTerminado());
+	}
 
 	@Test
-	public void moverN() throws JugadorException, JuegoException {
-		PlayerType[] jugadores = new PlayerType[2];
-
-		jugadores[0] = PlayerType.MAGO;
+	public void moverNorte() throws JugadorException, JuegoException {
+		PlayerType[] jugadores = new PlayerType[Constantes.NUM_JUGADORES];
+		jugadores[0] = PlayerType.ELFO;
 		jugadores[1] = PlayerType.MAGO;
+		jugadores[2] = PlayerType.OGRO;
+		jugadores[3] = PlayerType.GUERRERO;
 		for (int i = 0; i < 10; i++) {
 			Juego j = new Juego(jugadores);
 
@@ -152,31 +122,23 @@ public class TestJuego {
 			if (c.getY() != 0) {
 				try {
 					j.movePlayer('N');
-				} catch (JuegoException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (JugadorException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (CloneNotSupportedException e) {
-					// TODO Auto-generated catch block
+					c.goUp();
+				} catch (JuegoException | JugadorException | CloneNotSupportedException e) {
 					e.printStackTrace();
 				}
-				c.goUp();
 				assertEquals(c, j.obtenerCoordenadaJugadorJuega());
 			}
 		}
 
 	}
 
-	// MOVER PLAYER S
-
 	@Test
-	public void moverS() throws JugadorException, JuegoException {
-		PlayerType[] jugadores = new PlayerType[2];
-
-		jugadores[0] = PlayerType.MAGO;
+	public void moverSur() throws JugadorException, JuegoException {
+		PlayerType[] jugadores = new PlayerType[Constantes.NUM_JUGADORES];
+		jugadores[0] = PlayerType.ELFO;
 		jugadores[1] = PlayerType.MAGO;
+		jugadores[2] = PlayerType.OGRO;
+		jugadores[3] = PlayerType.GUERRERO;
 		for (int i = 0; i < 10; i++) {
 			Juego j = new Juego(jugadores);
 
@@ -184,31 +146,23 @@ public class TestJuego {
 			if (c.getY() != 9) {
 				try {
 					j.movePlayer('S');
-				} catch (JuegoException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (JugadorException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (CloneNotSupportedException e) {
-					// TODO Auto-generated catch block
+					c.goDown();
+				} catch (JuegoException | JugadorException | CloneNotSupportedException e) {
 					e.printStackTrace();
 				}
-				c.goDown();
 				assertEquals(c, j.obtenerCoordenadaJugadorJuega());
 			}
 		}
 
 	}
 
-	// MOVER PLAYER E
-
 	@Test
-	public void moverE() throws JugadorException, JuegoException {
-		PlayerType[] jugadores = new PlayerType[2];
-
-		jugadores[0] = PlayerType.MAGO;
+	public void moverEste() throws JugadorException, JuegoException {
+		PlayerType[] jugadores = new PlayerType[Constantes.NUM_JUGADORES];
+		jugadores[0] = PlayerType.ELFO;
 		jugadores[1] = PlayerType.MAGO;
+		jugadores[2] = PlayerType.OGRO;
+		jugadores[3] = PlayerType.GUERRERO;
 		for (int i = 0; i < 10; i++) {
 			Juego j = new Juego(jugadores);
 
@@ -216,31 +170,23 @@ public class TestJuego {
 			if (c.getX() != 9) {
 				try {
 					j.movePlayer('E');
-				} catch (JuegoException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (JugadorException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (CloneNotSupportedException e) {
-					// TODO Auto-generated catch block
+					c.goRight();
+				} catch (JuegoException | JugadorException | CloneNotSupportedException e) {
 					e.printStackTrace();
 				}
-				c.goRight();
 				assertEquals(c, j.obtenerCoordenadaJugadorJuega());
 			}
 		}
 
 	}
 
-	// MOVER PLAYER O
-
 	@Test
-	public void moverO() throws JugadorException, JuegoException {
-		PlayerType[] jugadores = new PlayerType[2];
-
-		jugadores[0] = PlayerType.MAGO;
+	public void moverOeste() throws JugadorException, JuegoException {
+		PlayerType[] jugadores = new PlayerType[Constantes.NUM_JUGADORES];
+		jugadores[0] = PlayerType.ELFO;
 		jugadores[1] = PlayerType.MAGO;
+		jugadores[2] = PlayerType.OGRO;
+		jugadores[3] = PlayerType.GUERRERO;
 		for (int i = 0; i < 10; i++) {
 			Juego j = new Juego(jugadores);
 
@@ -248,51 +194,52 @@ public class TestJuego {
 			if (c.getX() != 0) {
 				try {
 					j.movePlayer('O');
-				} catch (JuegoException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (JugadorException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (CloneNotSupportedException e) {
-					// TODO Auto-generated catch block
+					c.goLeft();
+				} catch (JuegoException | JugadorException | CloneNotSupportedException e) {
 					e.printStackTrace();
 				}
-				c.goLeft();
 				assertEquals(c, j.obtenerCoordenadaJugadorJuega());
 			}
 		}
 
 	}
 
-	// MOVER PLAYER Mal
-
 	@Test
 	public void moverError() throws JugadorException {
-		PlayerType[] jugadores = new PlayerType[2];
-
-		jugadores[0] = PlayerType.MAGO;
+		PlayerType[] jugadores = new PlayerType[Constantes.NUM_JUGADORES];
+		jugadores[0] = PlayerType.ELFO;
 		jugadores[1] = PlayerType.MAGO;
-
+		jugadores[2] = PlayerType.OGRO;
+		jugadores[3] = PlayerType.GUERRERO;
 		Juego j = new Juego(jugadores);
-
 		Coordenada c = j.obtenerCoordenadaJugadorJuega();
 
 		try {
 			try {
 				j.movePlayer('J');
-			} catch (JugadorException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (CloneNotSupportedException e) {
-				// TODO Auto-generated catch block
+				fail("Tendria que saltar una exception");
+			} catch (JugadorException | CloneNotSupportedException e) {
 				e.printStackTrace();
 			}
-			fail("Tendria que saltar una exception");
+
 		} catch (JuegoException e) {
 
-			System.out.println("Parametro de movimiento no contemplado");
+			e.printStackTrace();
 
 		}
+	}
+
+	@Test
+	public void decrementarDado() {
+		PlayerType[] jugadores = new PlayerType[Constantes.NUM_JUGADORES];
+		jugadores[0] = PlayerType.ELFO;
+		jugadores[1] = PlayerType.MAGO;
+		jugadores[2] = PlayerType.OGRO;
+		jugadores[3] = PlayerType.GUERRERO;
+		Juego j = new Juego(jugadores);
+		j.setDado();
+		int valorDado = j.getValorDado();
+		j.decrementaDado();
+		assertEquals(valorDado - 1, j.getValorDado());
 	}
 }

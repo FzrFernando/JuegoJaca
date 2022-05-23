@@ -2,30 +2,22 @@ package logicaJuego;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
-import com.jacaranda.elemento.*;
-
-import elementos.Coordenada;
-import elementos.Element;
-import elementos.ElementType;
-import elementos.Jugador;
-import elementos.JugadorException;
-import elementos.PlayerType;
+import elementos.*;
 
 public class Juego {
 
 	private HashMap<Coordenada, Element> tablero;
 	private ArrayList<Coordenada> coordenadaJugadores;
 	private int jugadorJuega;
-	private int dado; // Dado para ver los movimientos del jugador que juega
+	private int dado;
 
 	public Juego(PlayerType[] personaje) {
 		super();
 		tablero = new HashMap<>();
 		coordenadaJugadores = new ArrayList<>();
 		crearTablero();
-		for (int i = 0; i < Constantes.NUM_JUGADORES; i++) {
+		for (int i = 0; i < personaje.length; i++) {
 			crearJugador(personaje[i]);
 		}
 	}
@@ -41,7 +33,6 @@ public class Juego {
 		boolean creado = false;
 		Jugador j = new Jugador(tipo);
 		Coordenada c = new Coordenada();
-		// Compruebo si esta la coordenada ocupada, sino creo una coordenada nueva
 		while (coordenadaJugadores.contains(c)) {
 			c = new Coordenada();
 		}
@@ -56,8 +47,6 @@ public class Juego {
 		while (i < Constantes.NUM_ROCAS) {
 			Coordenada c = new Coordenada();
 			Element e = new Element(ElementType.ROCA);
-			// Si el get de la coordenada es null lo que hago es a�adirla, sino no aumento
-			// el contador
 			if (tablero.get(c) == null) {
 				this.tablero.put(c, e);
 				i++;
@@ -71,8 +60,6 @@ public class Juego {
 		while (i < Constantes.NUM_GEMAS) {
 			Coordenada c = new Coordenada();
 			Element e = new Element(ElementType.GEMA);
-			// Si el get de la coordenada es null lo que hago es a�adirla, sino no aumento
-			// el contador
 			if (tablero.get(c) == null) {
 				this.tablero.put(c, e);
 				i++;
@@ -86,8 +73,6 @@ public class Juego {
 		while (i < Constantes.NUM_POCIONES) {
 			Coordenada c = new Coordenada();
 			Element e = new Element(ElementType.POCION);
-			// Si el get de la coordenada es null lo que hago es a�adirla, sino no aumento
-			// el contador
 			if (tablero.get(c) == null) {
 				this.tablero.put(c, e);
 				i++;
@@ -98,14 +83,16 @@ public class Juego {
 
 	public boolean isTerminado() {
 		boolean terminado = false;
-		boolean tieneDinero = false;
-		for (Element e : this.tablero.values()) {
-			if (e instanceof Jugador && ((Jugador) e).getDinero()==Constantes.DINERO) {
-					tieneDinero = true;
+		if (coordenadaJugadores.size() == 1) {
+			terminado = true;
+		}
+		for (Coordenada i : coordenadaJugadores) {
+			if (tablero.get(i) != null) {
+				Jugador j = (Jugador) this.tablero.get(i);
+				if (j.getDinero() == Constantes.NUM_DINERO) {
+					terminado = true;
 				}
 			}
-		if (this.coordenadaJugadores.size() == 1 || tieneDinero) {
-			terminado = true;
 		}
 		return terminado;
 	}
@@ -117,11 +104,14 @@ public class Juego {
 
 	public String imprimeNombreJugadores() {
 		StringBuilder resultado = new StringBuilder();
-		int i = 1;
+		int i = 0;
 		for (Coordenada c : this.coordenadaJugadores) {
-			Jugador j = (Jugador) tablero.get(c);
-			resultado.append("El jugador " + i + " es un " + j.getNombre() + "\n");
-			i++;
+			if (tablero.containsKey(c)) {
+				Jugador j = (Jugador) tablero.get(c);
+				i++;
+				resultado.append("El jugador " + i + " es un " + j.getNombre() + "\n");
+			}
+
 		}
 		return resultado.toString();
 	}
@@ -131,7 +121,8 @@ public class Juego {
 		int i = 1;
 		for (Coordenada c : this.coordenadaJugadores) {
 			Jugador j = (Jugador) tablero.get(c);
-			resultado.append("El personaje " + i + " tiene " + j.getDinero() + " dinero " + j.getGemas() + " gemas"+ j.getPociones() +" pociones"+ "\n");
+			resultado.append("El personaje " + i + " tiene " + j.getDinero() + " dinero " + j.getGemas() + " gemas"
+					+ j.getPociones() + " pociones" + "\n");
 			i++;
 		}
 		return resultado.toString();
@@ -172,7 +163,7 @@ public class Juego {
 		this.tablero.remove(c);
 		tablero.put(coord, aux);
 		this.coordenadaJugadores.remove(jugadorJuega);
-		this.coordenadaJugadores.add(jugadorJuega,coord);
+		this.coordenadaJugadores.add(jugadorJuega, coord);
 	}
 
 	public void proximoJugador() {
@@ -214,21 +205,28 @@ public class Juego {
 		Jugador j = (Jugador) this.tablero.get(aux);
 		return j.getFuerzaParaLuchar();
 	}
-	
+
 	public int getValorDado() {
 		return dado;
 	}
+
 	public int decrementaDado() {
 		return this.dado--;
 	}
+
 	public void setDado() {
-		Coordenada aux=this.coordenadaJugadores.get(jugadorJuega);
-		Jugador auxiliar=(Jugador) this.tablero.get(aux);
-		this.dado = auxiliar.getFuerzaParaLuchar();
+		Coordenada aux = this.coordenadaJugadores.get(jugadorJuega);
+		Jugador auxiliar = (Jugador) this.tablero.get(aux);
+		if (auxiliar.getVelocidadParaLuchar() != 0) {
+			this.dado = auxiliar.getVelocidadParaLuchar();
+		}
+
 	}
+
 	public Element obtenerElementoTablero(Coordenada coord) {
 		return this.tablero.get(coord);
 	}
+
 	public Coordenada obtenerCoordenadaJugadorJuega() {
 		return this.coordenadaJugadores.get(jugadorJuega);
 	}
@@ -238,8 +236,6 @@ public class Juego {
 		while (i < Constantes.NUM_DINERO) {
 			Coordenada c = new Coordenada();
 			Element e = new Element(ElementType.DINERO);
-			// Si el get de la coordenada es null lo que hago es a�adirla, sino no aumento
-			// el contador
 			if (tablero.get(c) == null) {
 				this.tablero.put(c, e);
 				i++;
@@ -301,7 +297,7 @@ public class Juego {
 	 * @return
 	 * @throws JuegoException
 	 * @throws JugadorException
-	 * @throws CloneNotSupportedException 
+	 * @throws CloneNotSupportedException
 	 */
 	public String movePlayer(char direction) throws JuegoException, JugadorException, CloneNotSupportedException {
 		// Si no es una dirección válida, mando un exception
