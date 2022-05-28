@@ -123,7 +123,7 @@ public class TestJuego {
 				try {
 					j.movePlayer('N');
 					c.goUp();
-				} catch (JuegoException | JugadorException | CloneNotSupportedException e) {
+				} catch (JuegoException | JugadorException e) {
 					e.printStackTrace();
 				}
 				assertEquals(c, j.obtenerCoordenadaJugadorJuega());
@@ -147,7 +147,7 @@ public class TestJuego {
 				try {
 					j.movePlayer('S');
 					c.goDown();
-				} catch (JuegoException | JugadorException | CloneNotSupportedException e) {
+				} catch (JuegoException | JugadorException e) {
 					e.printStackTrace();
 				}
 				assertEquals(c, j.obtenerCoordenadaJugadorJuega());
@@ -171,7 +171,7 @@ public class TestJuego {
 				try {
 					j.movePlayer('E');
 					c.goRight();
-				} catch (JuegoException | JugadorException | CloneNotSupportedException e) {
+				} catch (JuegoException | JugadorException e) {
 					e.printStackTrace();
 				}
 				assertEquals(c, j.obtenerCoordenadaJugadorJuega());
@@ -195,7 +195,7 @@ public class TestJuego {
 				try {
 					j.movePlayer('O');
 					c.goLeft();
-				} catch (JuegoException | JugadorException | CloneNotSupportedException e) {
+				} catch (JuegoException | JugadorException  e) {
 					e.printStackTrace();
 				}
 				assertEquals(c, j.obtenerCoordenadaJugadorJuega());
@@ -218,7 +218,7 @@ public class TestJuego {
 			try {
 				j.movePlayer('J');
 				fail("Tendria que saltar una exception");
-			} catch (JugadorException | CloneNotSupportedException e) {
+			} catch (JugadorException e) {
 				e.printStackTrace();
 			}
 

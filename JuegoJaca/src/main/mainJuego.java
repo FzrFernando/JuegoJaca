@@ -78,9 +78,6 @@ public class mainJuego {
 					} catch (JugadorException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					} catch (CloneNotSupportedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}
 					
 					

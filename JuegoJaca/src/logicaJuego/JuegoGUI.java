@@ -164,24 +164,14 @@ public class JuegoGUI extends Juego implements ActionListener {
 					if (i == coord.getX()) {
 						if (j - coord.getY() == 1) {
 							try {
-								try {
-									resul = super.movePlayer('S');
-								} catch (CloneNotSupportedException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
+								resul = super.movePlayer('S');
 							} catch (JuegoException | JugadorException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
 						} else if (j - coord.getY() == -1) {
 							try {
-								try {
-									resul = super.movePlayer('N');
-								} catch (CloneNotSupportedException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
+								resul = super.movePlayer('N');
 							} catch (JuegoException | JugadorException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -192,24 +182,14 @@ public class JuegoGUI extends Juego implements ActionListener {
 					} else if (j == coord.getY()) { // Si la y es igual, miro a ver si hay una diferencia de 1 en la x
 						if (i - coord.getX() == 1) {
 							try {
-								try {
-									resul = super.movePlayer('E');
-								} catch (CloneNotSupportedException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
+								resul = super.movePlayer('E');
 							} catch (JuegoException | JugadorException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
 						} else if (i - coord.getX() == -1) {
 							try {
-								try {
-									resul = super.movePlayer('O');
-								} catch (CloneNotSupportedException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
+								resul = super.movePlayer('O');
 							} catch (JuegoException | JugadorException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
